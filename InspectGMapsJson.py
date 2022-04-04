@@ -124,6 +124,10 @@ for file in os.listdir(JSON_folder):
     if file.endswith(".json") and re.search(regex_filter, file):
         JSON_files.append(f"{JSON_folder}\\" + file)
 
+if len(JSON_files) == 0:
+    print(f"Unable to find eligible JSON files '[year]_[month].json' under {JSON_folder} folder")
+    exit
+
 numberof_keyErrors = 0
 attempts = 0
 when_visited_location = []
@@ -167,9 +171,9 @@ for visit in when_visited_location:
         previous_print = f"Range: {visit['distance'].ljust(6)} Visit between {visit['startTimestamp']} - {visit['endTimestamp']}"
 
 
-try:
-    keyErrorPercentage = str(numberof_keyErrors * 100 / attempts)[0:5] + "%"
-except ZeroDivisionError:
-    keyErrorPercentage = f"{numberof_keyErrors} (total)"
-
-logging.debug(f"KeyError ratio (to be inspected if > 1%): {keyErrorPercentage}")
+if numberof_keyErrors > 0:
+    try:
+        keyErrorPercentage = str(numberof_keyErrors * 100 / attempts)[0:5] + "%"
+    except ZeroDivisionError:
+        keyErrorPercentage = f"{numberof_keyErrors} (total)"
+    logging.debug(f"KeyError ratio (to be inspected if > 1%): {keyErrorPercentage}")
