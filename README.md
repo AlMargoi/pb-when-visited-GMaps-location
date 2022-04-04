@@ -1,6 +1,6 @@
 ## Table of contents:
 * [Description](#Description)
-* [How to](#technologies)
+* [How to](#How to)
 
 <br>
 
